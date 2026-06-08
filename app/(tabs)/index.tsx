@@ -160,7 +160,7 @@ export default function HomeScreen() {
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
           <Image
-            source={require('@/assets/images/icon')}
+            source={require('@/assets/images/icon.png')}
             style={styles.logo}
             resizeMode="contain"
           />

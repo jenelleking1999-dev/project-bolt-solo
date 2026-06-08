@@ -74,150 +74,150 @@ export default function AuthScreen() {
           </TouchableOpacity>
         </View>
 
-      <ScrollView
-        style={styles.scrollView}
-        contentContainerStyle={styles.scrollContent}
-      >
-        <View style={styles.logoContainer}>
-          <Image
-            source={require('@/assets/images/solo_logo-removebg-preview.png')}
-            style={styles.logo}
-            resizeMode="contain"
-          />
-          <Text style={styles.title}>SOLO</Text>
-        </View>
+        <ScrollView
+          style={styles.scrollView}
+          contentContainerStyle={styles.scrollContent}
+        >
+          <View style={styles.logoContainer}>
+            <Image
+              source={require('@/assets/images/icon.png')}
+              style={styles.logo}
+              resizeMode="contain"
+            />
+            <Text style={styles.title}>SOLO</Text>
+          </View>
 
-        <View style={styles.formContainer}>
-          <Text style={styles.formTitle}>
-            {isSignUp ? 'Create Account' : 'Welcome Back'}
-          </Text>
-          <Text style={styles.formSubtitle}>
-            {isSignUp
-              ? 'Sign up to save your workouts'
-              : 'Sign in to continue'}
-          </Text>
+          <View style={styles.formContainer}>
+            <Text style={styles.formTitle}>
+              {isSignUp ? 'Create Account' : 'Welcome Back'}
+            </Text>
+            <Text style={styles.formSubtitle}>
+              {isSignUp
+                ? 'Sign up to save your workouts'
+                : 'Sign in to continue'}
+            </Text>
 
-          {error && (
-            <View style={styles.errorContainer}>
-              <Text style={styles.errorText}>{error}</Text>
-            </View>
-          )}
+            {error && (
+              <View style={styles.errorContainer}>
+                <Text style={styles.errorText}>{error}</Text>
+              </View>
+            )}
 
-          {isSignUp && (
+            {isSignUp && (
+              <TextInput
+                style={styles.input}
+                placeholder="Full Name"
+                placeholderTextColor={colors.dark.textSecondary}
+                value={fullName}
+                onChangeText={setFullName}
+                autoCapitalize="words"
+              />
+            )}
+
             <TextInput
               style={styles.input}
-              placeholder="Full Name"
+              placeholder="Email"
               placeholderTextColor={colors.dark.textSecondary}
-              value={fullName}
-              onChangeText={setFullName}
-              autoCapitalize="words"
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              autoCapitalize="none"
             />
-          )}
 
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            placeholderTextColor={colors.dark.textSecondary}
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
-            autoCapitalize="none"
-          />
+            <TextInput
+              style={styles.input}
+              placeholder="Password"
+              placeholderTextColor={colors.dark.textSecondary}
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+              autoCapitalize="none"
+            />
 
-          <TextInput
-            style={styles.input}
-            placeholder="Password"
-            placeholderTextColor={colors.dark.textSecondary}
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-            autoCapitalize="none"
-          />
-
-          {!isSignUp && (
-            <TouchableOpacity
-              style={styles.forgotPasswordButton}
-              onPress={() => router.push('/forgot-password')}
-            >
-              <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-            </TouchableOpacity>
-          )}
-
-          {isSignUp && (
-            <View style={styles.termsContainer}>
+            {!isSignUp && (
               <TouchableOpacity
-                style={styles.checkboxRow}
-                onPress={() => setAgreedToTerms(!agreedToTerms)}
-                activeOpacity={0.7}
+                style={styles.forgotPasswordButton}
+                onPress={() => router.push('/forgot-password')}
               >
-                {agreedToTerms ? (
-                  <CheckSquare size={20} color={colors.dark.primary} />
-                ) : (
-                  <Square size={20} color={colors.dark.textSecondary} />
-                )}
-                <Text style={styles.termsText}>
-                  I agree to the{' '}
-                  <Text
-                    style={styles.termsLink}
-                    onPress={() => WebBrowser.openBrowserAsync(TERMS_URL)}
-                  >
-                    Terms & Services
-                  </Text>
-                  {' '}and acknowledge the{' '}
-                  <Text
-                    style={styles.termsLink}
-                    onPress={() => WebBrowser.openBrowserAsync(PRIVACY_URL)}
-                  >
-                    Privacy Policy
-                  </Text>
-                </Text>
+                <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
               </TouchableOpacity>
-            </View>
-          )}
+            )}
 
-          <TouchableOpacity
-            style={[
-              styles.submitButton,
-              (isSignUp && !agreedToTerms) && styles.submitButtonDisabled,
-            ]}
-            onPress={handleAuth}
-            disabled={loading || (isSignUp && !agreedToTerms)}
-          >
-            <LinearGradient
-              colors={
-                (isSignUp && !agreedToTerms)
-                  ? [colors.dark.textTertiary, colors.dark.textTertiary]
-                  : [colors.dark.primary, colors.dark.secondary]
-              }
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-              style={styles.submitButtonGradient}
+            {isSignUp && (
+              <View style={styles.termsContainer}>
+                <TouchableOpacity
+                  style={styles.checkboxRow}
+                  onPress={() => setAgreedToTerms(!agreedToTerms)}
+                  activeOpacity={0.7}
+                >
+                  {agreedToTerms ? (
+                    <CheckSquare size={20} color={colors.dark.primary} />
+                  ) : (
+                    <Square size={20} color={colors.dark.textSecondary} />
+                  )}
+                  <Text style={styles.termsText}>
+                    I agree to the{' '}
+                    <Text
+                      style={styles.termsLink}
+                      onPress={() => WebBrowser.openBrowserAsync(TERMS_URL)}
+                    >
+                      Terms & Services
+                    </Text>
+                    {' '}and acknowledge the{' '}
+                    <Text
+                      style={styles.termsLink}
+                      onPress={() => WebBrowser.openBrowserAsync(PRIVACY_URL)}
+                    >
+                      Privacy Policy
+                    </Text>
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            )}
+
+            <TouchableOpacity
+              style={[
+                styles.submitButton,
+                (isSignUp && !agreedToTerms) && styles.submitButtonDisabled,
+              ]}
+              onPress={handleAuth}
+              disabled={loading || (isSignUp && !agreedToTerms)}
             >
-              <Text style={styles.submitButtonText}>
-                {loading
-                  ? 'Please wait...'
-                  : isSignUp
-                    ? 'Create Account'
-                    : 'Sign In'}
-              </Text>
-            </LinearGradient>
-          </TouchableOpacity>
+              <LinearGradient
+                colors={
+                  (isSignUp && !agreedToTerms)
+                    ? [colors.dark.textTertiary, colors.dark.textTertiary]
+                    : [colors.dark.primary, colors.dark.secondary]
+                }
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+                style={styles.submitButtonGradient}
+              >
+                <Text style={styles.submitButtonText}>
+                  {loading
+                    ? 'Please wait...'
+                    : isSignUp
+                      ? 'Create Account'
+                      : 'Sign In'}
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.switchButton}
-            onPress={() => {
-              setIsSignUp(!isSignUp);
-              setError('');
-            }}
-          >
-            <Text style={styles.switchButtonText}>
-              {isSignUp
-                ? 'Already have an account? Sign In'
-                : "Don't have an account? Sign Up"}
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+            <TouchableOpacity
+              style={styles.switchButton}
+              onPress={() => {
+                setIsSignUp(!isSignUp);
+                setError('');
+              }}
+            >
+              <Text style={styles.switchButtonText}>
+                {isSignUp
+                  ? 'Already have an account? Sign In'
+                  : "Don't have an account? Sign Up"}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       </KeyboardAvoidingView>
     </LinearGradient>
   );
